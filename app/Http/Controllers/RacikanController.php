@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class RacikanController extends Controller
 {
+    public $obat = 'obat';
     public function index()
     {
         $data['obats'] = ObatAlkes::all();
@@ -36,7 +37,7 @@ class RacikanController extends Controller
             return json_encode(['true' => false, 'message' => 'Lengkapi Form Resep']);
         } else {
             $numStok = 0;
-            for ($i = 0; $i < count($req['obat']); $i++) {
+            for ($i = 0; $i <= count($req['obat']); $i++) {
                 $stokObat = ObatAlkes::where('obatalkes_kode', $req['obat'][$i])->first();
                 if ($req['qty'][$i] < $stokObat->stok) {
                     $numStok += 1;
